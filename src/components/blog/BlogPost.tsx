@@ -33,18 +33,16 @@ export function BlogPost({ post }: BlogPostProps) {
 
   // Render markdown content and set current URL
   useEffect(() => {
-    const renderContent = () => {
+    const renderContent = async () => {
       try {
         if (typeof window !== 'undefined') {
           // Configure marked for better rendering
           marked.setOptions({
             breaks: true,
             gfm: true,
-            headerIds: true,
-            mangle: false,
           })
 
-          const html = marked(post.content)
+          const html = await marked(post.content)
           const cleanHtml = DOMPurify.sanitize(html)
           setRenderedContent(cleanHtml)
           setCurrentUrl(window.location.href)
@@ -54,12 +52,13 @@ export function BlogPost({ post }: BlogPostProps) {
         }
       } catch (error) {
         console.error('Error rendering content:', error)
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error'
         setRenderedContent(`<div class="text-red-600 p-4 bg-red-50 rounded-lg">
           <p><strong>Error rendering content.</strong></p>
           <p>Please try refreshing the page. If the problem persists, the content may need to be updated.</p>
           <details class="mt-2">
             <summary class="cursor-pointer">Error details</summary>
-            <pre class="mt-2 text-sm">${error.message}</pre>
+            <pre class="mt-2 text-sm">${errorMessage}</pre>
           </details>
         </div>`)
       }
