@@ -53,8 +53,26 @@ export function FAQ() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  // FAQ Schema for structured data
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   return (
     <section className="py-16 px-4 bg-brand-secondary-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-brand-secondary-900 mb-4">
@@ -65,17 +83,20 @@ export function FAQ() {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4" itemScope itemType="https://schema.org/FAQPage">
           {faqs.map((faq, index) => (
             <div
               key={index}
               className="bg-white rounded-xl border border-brand-secondary-200 shadow-sm overflow-hidden hover:border-brand-primary-300 transition-colors"
+              itemScope
+              itemType="https://schema.org/Question"
+              itemProp="mainEntity"
             >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-brand-secondary-50 transition-colors"
               >
-                <h3 className="text-lg font-semibold text-brand-secondary-900 pr-4">
+                <h3 className="text-lg font-semibold text-brand-secondary-900 pr-4" itemProp="name">
                   {faq.question}
                 </h3>
                 {openIndex === index ? (
@@ -86,8 +107,8 @@ export function FAQ() {
               </button>
 
               {openIndex === index && (
-                <div className="px-6 pb-4">
-                  <p className="text-brand-secondary-600 leading-relaxed">
+                <div className="px-6 pb-4" itemScope itemType="https://schema.org/Answer" itemProp="acceptedAnswer">
+                  <p className="text-brand-secondary-600 leading-relaxed" itemProp="text">
                     {faq.answer}
                   </p>
                 </div>

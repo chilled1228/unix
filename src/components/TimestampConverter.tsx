@@ -133,8 +133,9 @@ export function TimestampConverter() {
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
           {/* Current Timestamp Display */}
+          <h3 className="text-xl font-semibold text-brand-secondary-900 mb-4 text-center">Current Unix Timestamp</h3>
           <div className="mb-8 p-4 bg-brand-primary-50 rounded-lg text-center border border-brand-primary-200">
-            <div className="text-sm text-brand-secondary-600 mb-2">Current Unix Timestamp</div>
+            <div className="text-sm text-brand-secondary-600 mb-2">Live Unix Timestamp</div>
             <div className="text-2xl font-mono font-bold text-brand-primary-600 mb-2">
               {currentTimestamp}
             </div>
@@ -184,6 +185,7 @@ export function TimestampConverter() {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Unix to Date */}
             <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-brand-secondary-900 mb-6">Convert Unix Time to Human-Readable Date</h2>
               <h3 className="text-lg font-semibold text-brand-secondary-900 flex items-center gap-2">
                 <Clock className="w-5 h-5 text-brand-primary-600" />
                 Unix Timestamp to Date
@@ -226,6 +228,7 @@ export function TimestampConverter() {
 
             {/* Date to Unix */}
             <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-brand-secondary-900 mb-6">Convert Date to Unix Timestamp</h2>
               <h3 className="text-lg font-semibold text-brand-secondary-900 flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-brand-primary-600" />
                 Date to Unix Timestamp
